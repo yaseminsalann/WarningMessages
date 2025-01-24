@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func alertWithTextField(_ sender: Any) {
-       
+        showAlertWithTextField()
     }
     func showAlert(title: String, message: String,buttonTitle: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -89,7 +89,36 @@ class ViewController: UIViewController {
             topController.present(actionSheet, animated: true, completion: nil)
         }
     }
-   
+    func showAlertWithTextField() {
+        let alert = UIAlertController(title: "Giriş Yap",
+                                      message: "Lütfen adınızı girin",
+                                      preferredStyle: .alert)
+        
+        // Metin alanı ekleme
+        alert.addTextField { textField in
+            textField.placeholder = "Adınız"
+        }
+        
+        // Eylemler ekleme
+        let submitAction = UIAlertAction(title: "Gönder",
+                                         style: .default) { _ in
+            if let textField = alert.textFields?.first {
+                print("Girilen isim: \(textField.text ?? "")")
+                self.usernameTextField.text = textField.text
+            }
+        }
+        let cancelAction = UIAlertAction(title: "İptal",
+                                         style: .cancel,
+                                         handler: nil)
+        
+        alert.addAction(submitAction)
+        alert.addAction(cancelAction)
+        
+        // Alert'i gösterme
+        if let topController = UIApplication.shared.keyWindow?.rootViewController {
+            topController.present(alert, animated: true, completion: nil)
+        }
+    }
 
 
 }
