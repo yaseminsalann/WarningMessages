@@ -36,6 +36,14 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func actionSheetButton(_ sender: Any) {
+        showActionSheet()
+    }
+    
+    @IBAction func alertWithTextField(_ sender: Any) {
+       
+    }
     func showAlert(title: String, message: String,buttonTitle: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         //UIAlertAction içindeki title butonun ismidir, style butonun türüdür cancel,default,destructive olarak türleri vardır, handler ise alert gösterildikten sonra birşey yapılmak istenirse buraya tanımlanır nil yada boş bırakılırsa birşey yapılmaz.
@@ -49,5 +57,40 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     
     }
+    func showActionSheet() {
+        let actionSheet = UIAlertController(title: "Bilgilerini Paylaşmak İstermisin?",
+                                            message: "Bir seçim yapınız",
+                                            preferredStyle: .actionSheet)
+        
+        // Eylemler ekleme
+        let option1 = UIAlertAction(title: "Mesajla paylaş",
+                                    style: .default) { _ in
+            print("Mesajla paylaş seçeneği seçildi")
+        }
+        let option2 = UIAlertAction(title: "E-posta ile paylaş",
+                                    style: .default) { _ in
+            print("E-posta ile paylaş seçeneği seçildi")
+        }
+        let option3 = UIAlertAction(title: "Sosyal medyada paylaş",
+                                    style: .default) { _ in
+            print("Sosyal medyada paylaş seçeneği seçildi")
+        }
+        let cancelAction = UIAlertAction(title: "İptal",
+                                         style: .cancel,
+                                         handler: nil)
+        
+        actionSheet.addAction(option1)
+        actionSheet.addAction(option2)
+        actionSheet.addAction(option3)
+        actionSheet.addAction(cancelAction)
+        
+        // Action Sheet'i gösterme
+        if let topController = UIApplication.shared.keyWindow?.rootViewController {
+            topController.present(actionSheet, animated: true, completion: nil)
+        }
+    }
+   
+
+
 }
 
